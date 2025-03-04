@@ -56,6 +56,7 @@ $alumnos = $query->fetchAll(PDO::FETCH_ASSOC);
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
             border: 1px solid #ccc;
@@ -95,15 +96,19 @@ $alumnos = $query->fetchAll(PDO::FETCH_ASSOC);
                     <th>Apellido</th>
                     <th>Edad</th>
                     <th>Correo</th>
+                    <th>Fecha de Nacimiento</th> <!-- Nuevo campo -->
+                    <th>Sexo</th> <!-- Nuevo campo -->
                     <th>Acciones</th>
                 </tr>
                 <?php foreach ($alumnos as $alumno): ?>
                 <tr>
-                    <td><?= $alumno['id']; ?></td>
+                    <td><?= htmlspecialchars($alumno['id']); ?></td>
                     <td><?= htmlspecialchars($alumno['nombre']); ?></td>
                     <td><?= htmlspecialchars($alumno['apellido']); ?></td>
                     <td><?= htmlspecialchars($alumno['edad']); ?></td>
                     <td><?= htmlspecialchars($alumno['correo']); ?></td>
+                    <td><?= htmlspecialchars($alumno['fecha_nacimiento']); ?></td> <!-- Mostrar nuevo campo -->
+                    <td><?= htmlspecialchars($alumno['sexo']); ?></td> <!-- Mostrar nuevo campo -->
                     <td>
                         <a href="editar_alumno.php?id=<?= $alumno['id']; ?>">Editar</a>
                         <a href="eliminar_alumno.php?id=<?= $alumno['id']; ?>">Eliminar</a>

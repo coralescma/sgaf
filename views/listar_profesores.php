@@ -12,7 +12,6 @@ if (!isset($_SESSION['user_id'])) {
 $db = new Database();
 $conn = $db->getConnection();
 
-// Consulta para obtener todos los profesores
 $query = $conn->prepare("SELECT * FROM profesores");
 $query->execute();
 $profesores = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -57,6 +56,7 @@ $profesores = $query->fetchAll(PDO::FETCH_ASSOC);
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         th, td {
             border: 1px solid #ccc;
@@ -96,15 +96,25 @@ $profesores = $query->fetchAll(PDO::FETCH_ASSOC);
                     <th>Apellidos</th>
                     <th>Correo</th>
                     <th>Asignaturas</th>
+                    <th>Especialidad</th>
+                    <th>Fecha Nac.</th> <!-- Nuevo campo -->
+                    <th>Teléfono</th> <!-- Nuevo campo -->
+                    <th>Celular</th> <!-- Nuevo campo -->
+                    <th>Sexo</th> <!-- Nuevo campo -->
                     <th>Acciones</th>
                 </tr>
                 <?php foreach ($profesores as $profesor): ?>
                 <tr>
-                    <td><?= $profesor['id']; ?></td>
+                    <td><?= htmlspecialchars($profesor['id']); ?></td>
                     <td><?= htmlspecialchars($profesor['nombre']); ?></td>
                     <td><?= htmlspecialchars($profesor['apellidos']); ?></td>
                     <td><?= htmlspecialchars($profesor['email']); ?></td>
                     <td><?= htmlspecialchars($profesor['asignaturas']); ?></td>
+                    <td><?= htmlspecialchars($profesor['id_especialidad']); ?></td>
+                    <td><?= htmlspecialchars($profesor['fecha_nacimiento']); ?></td> <!-- Mostrar nuevo campo -->
+                    <td><?= htmlspecialchars($profesor['telefono']); ?></td> <!-- Mostrar nuevo campo -->
+                    <td><?= htmlspecialchars($profesor['celular']); ?></td> <!-- Mostrar nuevo campo -->
+                    <td><?= htmlspecialchars($profesor['sexo']); ?></td> <!-- Mostrar nuevo campo -->
                     <td>
                         <a href="editar_profesor.php?id=<?= $profesor['id']; ?>">Editar</a>
                         <a href="eliminar_profesor.php?id=<?= $profesor['id']; ?>">Eliminar</a>

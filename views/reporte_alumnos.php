@@ -30,7 +30,9 @@ $pdf->Cell(10, 5, 'ID', 1, 0, 'C', true);
 $pdf->Cell(50, 5, 'Nombre', 1, 0, 'C', true);
 $pdf->Cell(50, 5, 'Apellido', 1, 0, 'C', true);
 $pdf->Cell(30, 5, 'Edad', 1, 0, 'C', true);
-$pdf->Cell(50, 5, 'Correo', 1, 1, 'C', true); // Cambia a 1 para nueva línea
+$pdf->Cell(50, 5, 'Correo', 1, 0, 'C', true);
+$pdf->Cell(30, 5, 'Fecha Nac.', 1, 0, 'C', true); // Nueva columna
+$pdf->Cell(20, 5, 'Sexo', 1, 1, 'C', true); // Nueva columna
 
 // Datos de los alumnos
 $pdf->SetFont('Arial', '', 10);
@@ -40,7 +42,9 @@ foreach ($alumnos as $alumno) {
     $pdf->Cell(50, 5, $alumno['nombre'], 1, 0, 'C', $fill);
     $pdf->Cell(50, 5, $alumno['apellido'], 1, 0, 'C', $fill);
     $pdf->Cell(30, 5, $alumno['edad'], 1, 0, 'C', $fill);
-    $pdf->Cell(50, 5, $alumno['correo'], 1, 1, 'C', $fill);
+    $pdf->Cell(50, 5, $alumno['correo'], 1, 0, 'C', $fill);
+    $pdf->Cell(30, 5, $alumno['fecha_nacimiento'], 1, 0, 'C', $fill); // Mostrar nuevo campo
+    $pdf->Cell(20, 5, $alumno['sexo'], 1, 1, 'C', $fill); // Mostrar nuevo campo
     $fill = !$fill; // Alternar el color de fondo
 }
 

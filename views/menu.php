@@ -31,8 +31,9 @@
         <a href="dashboard.php">Inicio</a>
         <a href="profile.php">Perfil</a>
         <a href="settings.php">Configuración</a>
-        <a href="formulario_profesor.php">Agregar profesor</a>
-        <a href="formulario_alumno.php">Agregar Alumno</a>
+        <a href="formulario_profesor.php">Profesor</a>
+        <a href="formulario_alumno.php">Alumno</a>
+        <a href="formulario_ciclo.php">Ciclo Escolar</a> <!-- Nueva sección para el ciclo escolar -->
         <a href="listar_planificaciones.php">planificación</a>
         <a href="logout.php">Cerrar Sesión</a>
     </nav>
@@ -40,4 +41,3 @@
 
 </body>
 </html>
-

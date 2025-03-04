@@ -8,12 +8,39 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Incluir el archivo de conexión a la base de datos
+include '../src/Database.php';
+
+$db = new Database();
+$conn = $db->getConnection();
+
 // Inicializar mensaje
 $message = "";
 
 // Verificar si hay un mensaje en la URL
 if (isset($_GET['message'])) {
     $message = $_GET['message'];
+}
+
+// Procesar el formulario al enviar
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Obtener datos del formulario
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $edad = $_POST['edad'];
+    $correo = $_POST['correo'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $sexo = $_POST['sexo'];
+
+    // Consulta para insertar un nuevo alumno
+    $query = "INSERT INTO alumnos (nombre, apellido, edad, correo, fecha_nacimiento, sexo) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    
+    if ($stmt->execute([$nombre, $apellido, $edad, $correo, $fecha_nacimiento, $sexo])) {
+        $message = "Alumno agregado exitosamente.";
+    } else {
+        $message = "Error al agregar el alumno.";
+    }
 }
 ?>
 
@@ -65,7 +92,8 @@ if (isset($_GET['message'])) {
         }
         input[type="text"],
         input[type="number"],
-        input[type="email"] {
+        input[type="email"],
+        input[type="date"] {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -83,6 +111,10 @@ if (isset($_GET['message'])) {
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+        .message {
+            color: green;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -99,9 +131,9 @@ if (isset($_GET['message'])) {
         <div class="form-container">
             <h1>Agregar Nuevo Alumno</h1>
             <?php if ($message): ?>
-                <p><?= htmlspecialchars($message); ?></p>
+                <p class="message"><?= htmlspecialchars($message); ?></p>
             <?php endif; ?>
-            <form action="insertar_alumno.php" method="POST">
+            <form method="POST" action="">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required>
 
@@ -114,7 +146,16 @@ if (isset($_GET['message'])) {
                 <label for="correo">Correo:</label>
                 <input type="email" id="correo" name="correo" required>
 
-                <input type="submit" value="Agregar Alumno">
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+
+                <p><input type="submit" value="Agregar Alumno"></p>
             </form>
         </div>
     </div>

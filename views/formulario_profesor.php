@@ -13,6 +13,16 @@ $message = "";
 if (isset($_GET['message'])) {
     $message = $_GET['message'];
 }
+
+// Conectar a la base de datos
+require '../src/Database.php'; // Asegúrate de que la ruta sea correcta
+$db = new Database();
+$conn = $db->getConnection();
+
+// Consulta para obtener las especialidades
+$query = $conn->prepare("SELECT id_especialidad, nombre_especialidad FROM especialidad");
+$query->execute();
+$especialidades = $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +72,16 @@ if (isset($_GET['message'])) {
             margin: 10px 0 5px;
         }
         input[type="text"],
-        input[type="email"] {
+        input[type="number"],
+        input[type="email"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        select {
             width: 100%;
             padding: 8px;
             margin-bottom: 10px;
@@ -111,7 +130,22 @@ if (isset($_GET['message'])) {
                 <label for="asignaturas">Asignaturas:</label>
                 <input type="text" id="asignaturas" name="asignaturas" required>
 
-                <input type="submit" value="Registrar Profesor">
+                <label for="telefono">Teléfono:</label>
+                <input type="number" id="telefono" name="telefono" required>
+
+                <label for="celular">Celular:</label>
+                <input type="number" id="celular" name="celular" required>
+
+                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+
+                <label for="sexo">Sexo:</label>
+                <select id="sexo" name="sexo" required>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                </select>
+
+                <input type="submit" value="Agregar Profesor">
             </form>
         </div>
     </div>
